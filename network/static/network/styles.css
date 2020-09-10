@@ -1,0 +1,60 @@
+/* width */
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: teal;
+    border: greenyellow;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+body{
+    background-color:  wheat;
+    font-family: cursive;
+}
+#jumbo{
+    padding: 2%; 
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+    background-color: #e6e6e6;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+.card-body{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+form{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+.likebtn,.unlikebtn{
+    cursor: pointer;
+    animation: heart 0.9s linear;
+}
+@keyframes heart{
+    0%{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}

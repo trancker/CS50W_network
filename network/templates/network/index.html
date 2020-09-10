@@ -1,0 +1,86 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+<div class="jumbotron" id="jumbo">
+    {% block pname %}
+    {% if user.username %}
+<h4>Welcome {{user.username}} ❤</h4>
+{% else %}
+<h4>Welcome Guest !</h4>
+{% endif %}
+{% endblock %}
+{% if not page_obj %}
+    <p>No posts yet!!!</p>
+    {% else %}
+    {% block allorprofile %}
+    <p>Have a look at all the posts.</p>
+    {% endblock %}
+    {% endif %}
+</div>
+
+<div class="container" id="posts">
+    
+    
+
+
+  {% block forposts %}
+    {% for bpost in page_obj %}
+
+    <div class="card">
+    <div class="card-header">
+    <h5><a href="{% url 'profilepage' bpost.username %}">{{bpost.username}}</a></a></h5>
+    <p>On {{bpost.timestamp}}</p>
+    {% if user.username == bpost.username %}
+    <button onclick=editpost({{bpost.id}}) class="btn btn-primary">Edit</button>
+    {% endif %}
+    </div>
+    <div class="card-body" id="card-body-{{bpost.id}}">
+        <p>{{bpost.content}}</p>
+    </div>
+    <div class="card-footer" id="likes-{{bpost.id}}">
+      {% if user.username %}
+      {% if bpost.id in likedids %}
+      <p><img class="unlikebtn" onclick="unlikepost({{bpost.id}},{{cuser}})" id="unlikebtn-{{bpost.id}}" src="https://img.icons8.com/cotton/64/000000/like--v1.png"/> <b>{{bpost.likes}}</b></p>
+      {% else %}
+      <p><img class="likebtn" onclick="likepost({{bpost.id}},{{cuser}})" id="likebtn-{{bpost.id}}" src="https://img.icons8.com/ios/50/000000/like.png"/> <b>{{bpost.likes}}</b></p>
+      {% endif %}
+      {% endif %}
+      
+    </div>
+    </div>
+    <br>
+    {% endfor %}
+    {% endblock %}
+</div>
+
+
+{% if page_obj %}
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation example">
+    <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Previous</a></li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">&laquo; Previous</span>
+      </li>
+      {% endif %}
+      {% for i in page_obj.paginator.page_range %}
+      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &raquo;</a></li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">Next &raquo;</span>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+  {% endif %}
+{% endblock %}
